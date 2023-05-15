@@ -14,22 +14,22 @@ resource "aws_instance" "sonar" {
     Name = "Sonar-tf-Server"
   }
   iam_instance_profile = data.aws_iam_role.s3.name
-#  provisioner "file" {
-#    source = "sonar_user_data.sh"
-#    destination = "/home/ubuntu/sonar_user_data.sh"
-#  }
-#  provisioner "remote-exec" {
-#    inline = [ 
-#      "chmod +x /home/ubuntu/sonar_user_data.sh",
-#      "sudo bash /home/ubuntu/sonar_user_data.sh"
-#     ]
-#    
-#  }
-#  connection {
-#    type = "ssh"
-#    user = "ubuntu"
-#    host = self.public_ip
-#    private_key = local_file.local_key_pair.content
-#  }
+  provisioner "file" {
+    source = "sonar-config.sh"
+    destination = "/home/ubuntu/sonar-config.sh"
+  }
+  provisioner "remote-exec" {
+    inline = [ 
+      "chmod +x /home/ubuntu/sonar-config.sh",
+  #    "sudo bash /home/ubuntu/sonar-config.sh"
+     ]
+    
+  }
+  connection {
+    type = "ssh"
+    user = "ubuntu"
+    host = self.public_ip
+    private_key = local_file.local_key_pair.content
+  }
   depends_on = [ local_file.local_key_pair ]
 }

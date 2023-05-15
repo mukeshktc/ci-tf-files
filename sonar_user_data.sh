@@ -114,13 +114,7 @@ ln -s /etc/nginx/sites-available/sonarqube /etc/nginx/sites-enabled/sonarqube
 systemctl enable nginx.service
 #systemctl restart nginx.service
 sudo ufw allow 80,9000,9001/tcp
-systemctl stop sonarqube
-apt install awscli -y
-aws s3 cp s3://s3-test-cicd-project/sonar-test.tgz /opt
-aws s3 cp s3://s3-test-cicd-project/postgres-test.tgz /var/lib
-tar -xvzf /opt/sonar-test.tgz --directory /opt
-tar -xvzf /var/lib/postgres-test.tgz --directory /var/lib
-systemctl start sonarqube
+
 echo "System reboot in 30 sec"
 sleep 30
 reboot
